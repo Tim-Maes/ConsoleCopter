@@ -72,6 +72,7 @@ internal class Game
 
     private void UpdateGame()
     {
+        copter.UpdateAnimationFrame();
         copter.Update();
         foreach (var pipe in pipes)
         {
