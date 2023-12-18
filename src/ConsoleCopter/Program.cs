@@ -4,7 +4,6 @@
     {
         static void Main(string[] args)
         {
-
             Console.SetWindowSize(80, 30);
             Console.SetBufferSize(Console.WindowWidth, Console.WindowHeight);
             Console.CursorVisible = false;

@@ -8,7 +8,7 @@ internal class Game
     private Copter copter;
     private List<Pipe> pipes;
     private bool gameOver;
-    private int pipeSpawnInterval = 20; // Frames until a new pipe is added
+    private int pipeSpawnInterval = 20;
     private int frameCount = 0;
     private int score = 0;
     private int highScore = 0;
@@ -25,7 +25,6 @@ internal class Game
         int initialCopterY = Console.WindowHeight / 2;
         copter = new Copter(initialCopterX, initialCopterY);
 
-        // Initialize the list of pipes
         pipes = new List<Pipe>();
 
         AddNewPipe();
@@ -33,8 +32,8 @@ internal class Game
 
     private void AddNewPipe()
     {
-        int pipeHeight = new Random().Next(5, Console.WindowHeight - 5); // Random height for the pipe
-        int pipeX = Console.WindowWidth - 1; // Starting at the right edge of the console
+        int pipeHeight = new Random().Next(5, Console.WindowHeight - 5);
+        int pipeX = Console.WindowWidth - 1;
         pipes.Add(new Pipe(pipeX, pipeHeight));
     }
 
@@ -87,11 +86,10 @@ internal class Game
             }
             else
             {
-                gameOver = true; // End the game if a collision is detected
-                keepRunningInputThread = false; // Signal the input thread to stop
+                gameOver = true;
+                keepRunningInputThread = false;
             }
 
-            // Increment frame counter and add a new pipe periodically
             frameCount++;
             if (frameCount >= pipeSpawnInterval)
             {
@@ -99,7 +97,6 @@ internal class Game
                 frameCount = 0;
             }
 
-            // Remove pipes that have moved off-screen
             pipes.RemoveAll(p => p.PositionX < 0);
         }
     }
@@ -115,20 +112,18 @@ internal class Game
 
         foreach (var pipe in pipes)
         {
-            // Check only the pipes that are close to the copter
-            if (Math.Abs(copter.PositionX - pipe.PositionX) <= 1) // SomeThreshold depends on the copter and pipe width
+            if (Math.Abs(copter.PositionX - pipe.PositionX) <= 1) 
             {
                 int bottomOfConsole = Console.WindowHeight - 1;
                 int topOfPipe = bottomOfConsole - pipe.Height;
 
-                // Check if copter's Y position is within the height of the pipe
                 if (copter.PositionY >= topOfPipe)
                 {
-                    return true; // Collision detected
+                    return true;
                 }
             }
         }
-        return false; // No collision
+        return false; 
     }
 
     private void ShowGameOverScreen()
@@ -142,7 +137,7 @@ internal class Game
             var keyInfo = Console.ReadKey(true);
             key = keyInfo.Key;
         }
-        while (key != ConsoleKey.R && key != ConsoleKey.Escape); // Wait until 'R' or 'Escape' is pressed
+        while (key != ConsoleKey.R && key != ConsoleKey.Escape);
 
         if (key == ConsoleKey.R)
         {
@@ -170,13 +165,12 @@ internal class Game
         pipes.Clear();
         gameOver = false;
         keepRunningInputThread = true;
-        // Reset any other game state variables as needed
     }
 
     private void RenderFrame()
     {
         ClearBuffer();
-        DrawHeader(); // New method to draw the header
+        DrawHeader();
 
         copter.Draw(buffer);
         foreach (var pipe in pipes)
@@ -189,7 +183,7 @@ internal class Game
 
     private void DrawHeader()
     {
-        string header = $"Score: {score} | High Score: {highScore}";
+        string header = $"Score: {score} | High Score: {highScore} | ConsoleCopter game by Tim Maes";
 
         for (int x = 0; x < header.Length; x++)
         {

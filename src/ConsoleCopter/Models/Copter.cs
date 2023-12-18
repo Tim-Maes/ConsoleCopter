@@ -50,12 +50,11 @@ public class Copter
 
     public bool CheckCollision(Copter copter, Pipe pipe)
     {
-        // Check if the copter's position overlaps with the pipe's position
         if (copter.PositionX == pipe.PositionX && copter.PositionY < pipe.Height)
         {
-            return true; // Collision detected
+            return true; 
         }
 
-        return false; // No collision
+        return false; 
     }
 }

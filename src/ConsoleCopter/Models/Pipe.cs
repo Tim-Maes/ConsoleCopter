@@ -22,12 +22,11 @@ public class Pipe
     {
         int bottomOfConsole = Console.WindowHeight - 1;
 
-        // Draw the pipe from the bottom up
         for (int i = bottomOfConsole; i > bottomOfConsole - Height; i--)
         {
             if (i >= 0 && i < Console.WindowHeight && PositionX >= 0 && PositionX < Console.WindowWidth)
             {
-                buffer[PositionX, i] = '|'; // '|' represents the pipe
+                buffer[PositionX, i] = '|';
             }
         }
     }
