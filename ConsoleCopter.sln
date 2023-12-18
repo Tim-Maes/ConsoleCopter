@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34309.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleCopter", "src\ConsoleCopter\ConsoleCopter.csproj", "{FEB323AD-8E06-4B98-886D-79C1A54E8E54}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FEB323AD-8E06-4B98-886D-79C1A54E8E54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEB323AD-8E06-4B98-886D-79C1A54E8E54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEB323AD-8E06-4B98-886D-79C1A54E8E54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEB323AD-8E06-4B98-886D-79C1A54E8E54}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {25896808-7F24-4B34-BA14-D73B8F44F009}
+	EndGlobalSection
+EndGlobal
