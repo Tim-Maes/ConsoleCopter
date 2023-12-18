@@ -8,4 +8,6 @@ Download or clone the solution, and run it.
 
 Press `space` to make the helicopter go up (currently displayed as X alternating with +).
 
+Game over if the copter touches the ground or hits any pipes.
+
 ![image](https://github.com/Tim-Maes/ConsoleCopter/assets/91606949/d1800025-9b47-4740-a599-257931665c5d)

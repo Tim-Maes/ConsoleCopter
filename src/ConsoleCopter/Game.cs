@@ -59,7 +59,7 @@ internal class Game
     {
         while (keepRunningInputThread)
         {
-            if (Console.KeyAvailable)
+            if (!gameOver && Console.KeyAvailable)
             {
                 var key = Console.ReadKey(true).Key;
                 if (key == ConsoleKey.Spacebar)
@@ -72,38 +72,46 @@ internal class Game
 
     private void UpdateGame()
     {
-        copter.UpdateAnimationFrame();
-        copter.Update();
-        foreach (var pipe in pipes)
+        if (!gameOver)
         {
-            pipe.Update();
-        }
-        if (!CheckCollision())
-        {
-            score++;
-            highScore = Math.Max(score, highScore);
-        }
-        else
-        {
-            gameOver = true; // End the game if a collision is detected
-            keepRunningInputThread = false; // Signal the input thread to stop
-        }
+            copter.UpdateAnimationFrame();
+            copter.Update();
+            foreach (var pipe in pipes)
+            {
+                pipe.Update();
+            }
+            if (!CheckCollision())
+            {
+                score++;
+                highScore = Math.Max(score, highScore);
+            }
+            else
+            {
+                gameOver = true; // End the game if a collision is detected
+                keepRunningInputThread = false; // Signal the input thread to stop
+            }
 
-        // Increment frame counter and add a new pipe periodically
-        frameCount++;
-        if (frameCount >= pipeSpawnInterval)
-        {
-            AddNewPipe();
-            frameCount = 0;
-        }
+            // Increment frame counter and add a new pipe periodically
+            frameCount++;
+            if (frameCount >= pipeSpawnInterval)
+            {
+                AddNewPipe();
+                frameCount = 0;
+            }
 
-        // Remove pipes that have moved off-screen
-        pipes.RemoveAll(p => p.PositionX < 0);
+            // Remove pipes that have moved off-screen
+            pipes.RemoveAll(p => p.PositionX < 0);
+        }
     }
 
     private bool CheckCollision()
     {
         pipes = pipes.OrderBy(p => p.PositionX).ToList();
+
+        if (copter.PositionY >= Console.WindowHeight - 1)
+        {
+            return true;
+        }
 
         foreach (var pipe in pipes)
         {
@@ -125,13 +133,24 @@ internal class Game
 
     private void ShowGameOverScreen()
     {
-        Console.WriteLine("YOU LOST");
-        Console.WriteLine("Press 'R' to Restart or any other key to Exit.");
+        Console.WriteLine($"YOU LOST, your score is: {score}");
+        Console.WriteLine("Press 'R' to Restart or hit ESCAPE to Exit.");
 
-        var key = Console.ReadKey();
-        if (key.Key == ConsoleKey.R)
+        ConsoleKey key;
+        do
+        {
+            var keyInfo = Console.ReadKey(true);
+            key = keyInfo.Key;
+        }
+        while (key != ConsoleKey.R && key != ConsoleKey.Escape); // Wait until 'R' or 'Escape' is pressed
+
+        if (key == ConsoleKey.R)
         {
             RestartGame();
+        }
+        else
+        {
+            keepRunningInputThread = false;
         }
     }
 
