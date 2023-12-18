@@ -10,6 +10,8 @@ internal class Game
     private bool gameOver;
     private int pipeSpawnInterval = 20; // Frames until a new pipe is added
     private int frameCount = 0;
+    private int score = 0;
+    private int highScore = 0;
     private char[,] buffer;
     private volatile bool keepRunningInputThread;
 
@@ -48,7 +50,7 @@ internal class Game
         }
 
         keepRunningInputThread = false;
-        inputThread.Join(); 
+        inputThread.Join();
 
         ShowGameOverScreen();
     }
@@ -75,7 +77,12 @@ internal class Game
         {
             pipe.Update();
         }
-        if (CheckCollision())
+        if (!CheckCollision())
+        {
+            score++;
+            highScore = Math.Max(score, highScore);
+        }
+        else
         {
             gameOver = true; // End the game if a collision is detected
             keepRunningInputThread = false; // Signal the input thread to stop
@@ -136,6 +143,7 @@ internal class Game
 
     private void InitializeGameState()
     {
+        score = 0;
         int initialCopterX = 10;
         int initialCopterY = Console.WindowHeight / 2;
         copter = new Copter(initialCopterX, initialCopterY);
@@ -148,6 +156,7 @@ internal class Game
     private void RenderFrame()
     {
         ClearBuffer();
+        DrawHeader(); // New method to draw the header
 
         copter.Draw(buffer);
         foreach (var pipe in pipes)
@@ -156,6 +165,19 @@ internal class Game
         }
 
         DrawBufferToConsole();
+    }
+
+    private void DrawHeader()
+    {
+        string header = $"Score: {score} | High Score: {highScore}";
+
+        for (int x = 0; x < header.Length; x++)
+        {
+            if (x < Console.WindowWidth)
+            {
+                buffer[x, 0] = header[x];
+            }
+        }
     }
 
     private void ClearBuffer()
