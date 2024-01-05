@@ -21,12 +21,33 @@ public class Pipe
     public void Draw(char[,] buffer)
     {
         int bottomOfConsole = Console.WindowHeight - 1;
+        int width = 3; 
 
         for (int i = bottomOfConsole; i > bottomOfConsole - Height; i--)
         {
-            if (i >= 0 && i < Console.WindowHeight && PositionX >= 0 && PositionX < Console.WindowWidth)
+            if (i >= 0 && i < Console.WindowHeight)
             {
-                buffer[PositionX, i] = '|';
+                for (int j = 0; j < width; j++)
+                {
+                    if (PositionX + j >= 0 && PositionX + j < Console.WindowWidth)
+                    {
+                        if (j == 0 || j == width - 1)
+                        {
+                            buffer[PositionX + j, i] = '|';
+                        }
+                        else
+                        {
+                            if (i == bottomOfConsole - Height + 1 || i == bottomOfConsole)
+                            {
+                                buffer[PositionX + j, i] = '-';
+                            }
+                            else
+                            {
+                                buffer[PositionX + j, i] = ' ';
+                            }
+                        }
+                    }
+                }
             }
         }
     }

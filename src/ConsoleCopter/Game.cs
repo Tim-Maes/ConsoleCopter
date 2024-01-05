@@ -103,6 +103,8 @@ internal class Game
 
     private bool CheckCollision()
     {
+        int pipeWidth = 3; 
+
         pipes = pipes.OrderBy(p => p.PositionX).ToList();
 
         if (copter.PositionY >= Console.WindowHeight - 1)
@@ -112,7 +114,7 @@ internal class Game
 
         foreach (var pipe in pipes)
         {
-            if (Math.Abs(copter.PositionX - pipe.PositionX) <= 1) 
+            if (copter.PositionX >= pipe.PositionX && copter.PositionX < pipe.PositionX + pipeWidth)
             {
                 int bottomOfConsole = Console.WindowHeight - 1;
                 int topOfPipe = bottomOfConsole - pipe.Height;
@@ -123,7 +125,7 @@ internal class Game
                 }
             }
         }
-        return false; 
+        return false;
     }
 
     private void ShowGameOverScreen()
