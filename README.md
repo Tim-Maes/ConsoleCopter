@@ -16,3 +16,6 @@ Game over if the copter touches the ground or hits any pipes.
 
 ![image](https://github.com/Tim-Maes/ConsoleCopter/assets/91606949/f514d5fc-b893-4513-9b45-b515a6d9213f)
 
+## Contributing and improvements
+
+Feel free to suggest any imrpovements or ideas - or make a pull request. 
